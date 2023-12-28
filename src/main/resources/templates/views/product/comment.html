@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <th:block th:fragment="productComment">
         <head>
             <link rel="stylesheet" th:href="@{/css/comment.css}" />
         </head>
-        <!--/* market comment */-->
         <div class="raise-comment">
             <div class="raise-comment-wrap">
                 <form method="POST" th:action="@{/product/cmtDelete}" th:each="cmt : ${productCmt}" class="raise-comment-content raise-comment-content" >

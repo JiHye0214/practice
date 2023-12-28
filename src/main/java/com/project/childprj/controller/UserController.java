@@ -29,9 +29,6 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    // Autowired / GetMapping(RequestMapping) / PostMapping 구분해 놓기!
-    // PostMapping 주석 간단 설명
-
     @Autowired
     private UserService userService;
 
@@ -58,7 +55,6 @@ public class UserController {
         Long id = U.getLoggedUser().getId();
         UserImg userImg = userService.findUserImg(id);
         model.addAttribute("userImg", userImg);
-//        return "aaaa";
     }
 
     @GetMapping("/signUpAgree")
@@ -71,7 +67,6 @@ public class UserController {
         return "/user/find";
     }
 
-    // 찜리스트
     @GetMapping("/zzim")
     public void togetherZzim(
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
@@ -80,27 +75,23 @@ public class UserController {
         zzimService.zzimList(page, model);
     }
 
-    // 로그인
     @PostMapping("/logIn")
     public void logInPost(){};
 
-    // 로그인 에러
     @PostMapping("/loginError")
     public String loginError(){
         return "user/login";
     }
 
-    // 찾기 - 아이디 (이메일)
     @PostMapping("/findId")
     public String findId(User user, Model model){
         String findName = user.getName();
         String findEmail = user.getEmail();
-        model.addAttribute("findId", userService.findIdPwByEmail(findName, findEmail)); // boolean
+        model.addAttribute("findId", userService.findIdPwByEmail(findName, findEmail));
         model.addAttribute("user", userService.userIdIs(findEmail));
         return "/user/find";
     }
 
-    // 찾기 - 비번 (아이디)
     @PostMapping("/findPwById")
     public String findPwById(User user, Model model){
         String findName = user.getName();
@@ -109,7 +100,6 @@ public class UserController {
         return "user/find";
     }
 
-    // 찾기 - 비번 (이메일)
     @PostMapping("/findPwByEmail")
     public String findPwByEmail(User user, Model model){
         String findName = user.getName();
@@ -118,14 +108,12 @@ public class UserController {
         return "user/find";
     }
 
-    // 회원가입
     @PostMapping("/signUp")
     public String signUp(@Valid User user,
                          BindingResult result,
                          Model model,
                          RedirectAttributes redirectAttributes) {
 
-        // 검증 에러가 있으면 redirect
         if(result.hasErrors()){
             redirectAttributes.addFlashAttribute("loginId", user.getLoginId());
             redirectAttributes.addFlashAttribute("email", user.getEmail());
@@ -146,14 +134,12 @@ public class UserController {
         return "/user/signUpOk";
     }
 
-    // 마이페이지 - 프사 변경
     @PostMapping("/userImg") // @RequestParam : 얘는 name 값을 가져온다!!
     public String fixUserImg(@RequestParam Map<String, MultipartFile> file, Model model){
         model.addAttribute("change", userService.insertImg(file));
         return "user/changeSuccess";
     }
 
-    // 마이페이지 - 닉네임 변경
     @PostMapping("/nickname")
     public String fixNickname(User user, Model model){
 
@@ -162,7 +148,6 @@ public class UserController {
         return "/user/changeOk";
     }
 
-    // 마이페이지 - 비번 변경
     @PostMapping("/password")
     public String fixPassword(User user, Model model){
 
@@ -170,33 +155,26 @@ public class UserController {
         return "/user/changeOk";
     }
 
-    // 마이페이지 - 회원 탈퇴
     @PostMapping("/drop")
     public String dropUser(User user, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        // 회원 탈퇴 후 로그아웃
-        // 성공 !!
-        if(passwordEncoder.matches(user.getPassword(), U.getLoggedUser().getPassword())){ // 비번 맞으면
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication(); // 근데 이게 머지 인증 가져오기?
+        if(passwordEncoder.matches(user.getPassword(), U.getLoggedUser().getPassword())){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null) {
                 model.addAttribute("delete", userService.dropUser(user));
-                new SecurityContextLogoutHandler().logout(request, response, auth); // 시큐리티 여기서도 되네
+                new SecurityContextLogoutHandler().logout(request, response, auth);
             }
             return "redirect:/home";
         }
         return "/user/dropFail";
     }
 
-    // 찜 해제
     @PostMapping("/deleteZzim")
     public String deleteZzim(Long userId, Long togetherId) {
-        // zzim 테이블에서 데이터 삭제
         zzimService.deleteZzim(userId, togetherId);
 
         return "redirect:/user/zzim";
     }
-
-// ------------------validator--------------------
 
     @InitBinder("user")
     public void intiBinder(WebDataBinder binder) {

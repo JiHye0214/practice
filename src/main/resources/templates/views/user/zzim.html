@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8" />
@@ -14,10 +13,8 @@
         <title>찜리스트</title>
     </head>
     <body>
-        <!--/* header */-->
         <th:block th:insert="~{fragment/header::header}"></th:block>
 
-        <!--/* section */-->
         <div id="zzim-wrap">
             <div id="txt-section">
                 찜하고 확인해요! &nbsp;
@@ -67,7 +64,6 @@
             </div>
         </div>
 
-        <!--/* footer */-->
         <th:block th:insert="~{fragment/footer::footer}"></th:block>
     </body>
 </html>

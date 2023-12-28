@@ -5,21 +5,6 @@
 
 <mapper namespace="com.project.childprj.repository.ChildHouseRepository">
 
-<!--    <resultMap id="childHouseResultMap" type="com.project.childprj.domain.ChildHouse">-->
-<!--        <id property="id" column="id"/>-->
-<!--        <result property="CRNAME" column="CRNAME"/>-->
-<!--        <result property="CRTYPENAME" column="CRTYPENAME"/>-->
-<!--        <result property="CRADDR" column="CRADDR"/>-->
-<!--        <result property="CRTELNO" column="CRTELNO"/>-->
-<!--        <result property="CRHOME" column="CRHOME"/>-->
-<!--        <result property="NRTRROOMCNT" column="NRTRROOMCNT"/>-->
-<!--        <result property="CRCAPAT" column="CRCAPAT"/>-->
-<!--        <result property="CRCHCNT" column="CRCHCNT"/>-->
-<!--        <result property="LA" column="LA"/>-->
-<!--        <result property="LO" column="LO"/>-->
-<!--        <result property="CRCARGBNAME" column="CRCARGBNAME"/>-->
-<!--    </resultMap>-->
-
     <insert id="insertChildHouse" flushCache="true" parameterType="com.project.childprj.domain.ChildHouse">
         INSERT INTO child_house (CRNAME, CRTYPENAME, CRADDR, CRTELNO, CRHOME,
                                  NRTRROOMCNT, CRCAPAT, CRCHCNT, LA, LO, CRCARGBNAME)

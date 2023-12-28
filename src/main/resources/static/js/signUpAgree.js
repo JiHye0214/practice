@@ -1,9 +1,7 @@
 const allAgree = document.getElementById("check0");
 const agree1 = document.getElementById("check1");
 const agree2 = document.getElementById("check2");
-
 const $nextBtn = document.querySelector(".agree-next-btn");
-
 const agreeWarnArr = document.querySelectorAll(".warn-message");
 const agreeCheckArr = document.querySelectorAll(".agree-checkbox");
 

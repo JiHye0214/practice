@@ -17,23 +17,23 @@ public class Together {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String CODENAME;  // 분류
-    private String GUNAME;    // 자치구
-    private String TITLE;     // 공연/행사명
-    private String DATE;      // 날짜/시간
-    private String PLACE;     // 장소
-    private String ORG_NAME;  // 기관명
-    private String USE_TRGT;  // 이용대상
-    private String USE_FEE;   // 이용요금
-    private String ORG_LINK;  // 홈페이지 주소
-    private String MAIN_IMG;  // 대표이미지
-    private String STRTDATE;  // 시작일
-    private String END_DATE;  // 종료일
-    private double LOT;       // 위도(X좌표)
-    private double LAT;       // 경도(Y좌표)
-    private String type;      // 타입
-    private Long zzimCnt;     // 찜 카운트
-    private String isZzimClicked;  // 찜 클릭 여부
+    private String CODENAME;
+    private String GUNAME;
+    private String TITLE;
+    private String DATE;
+    private String PLACE;
+    private String ORG_NAME;
+    private String USE_TRGT;
+    private String USE_FEE;
+    private String ORG_LINK;
+    private String MAIN_IMG;
+    private String STRTDATE;
+    private String END_DATE;
+    private double LOT;
+    private double LAT;
+    private String type;
+    private Long zzimCnt;
+    private String isZzimClicked;
 
     public static Together fromJson(JsonNode row) {
         Together together = new Together();
@@ -65,15 +65,4 @@ public class Together {
         JsonNode node = row.get(fieldName);
         return (node != null && !node.isNull()) ? node.asDouble() : 0.0;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Together [id=" + id + ", CODENAME=" + CODENAME + ", GUNAME=" + GUNAME + ", TITLE="
-//                + TITLE + ", DATE=" + DATE + ",  PLACE=" + PLACE + ", ORG_NAME=" + ORG_NAME
-//                + ", USE_TRGT=" + USE_TRGT + ", ORG_LINK=" + ORG_LINK + ", MAIN_IMG=" + MAIN_IMG
-//                + ", STRTDATE=" + STRTDATE + ", END_DATE=" + END_DATE
-//                + ", LOT=" + LOT + ", LAT=" + LAT
-//                + "]";
-//    }
-
 }

@@ -37,14 +37,12 @@
         AND email = #{email}
     </select>
 
-    <!--아이디 찾기 & 비번 찾기(이메일)-->
     <select id="findIdPwByEmail" resultType="com.project.childprj.domain.User">
         <include refid="SELECT_BASE"/>
         AND name = #{name}
         AND email = #{email}
     </select>
 
-    <!--비밀번호 찾기(아이디)-->
     <select id="findPwById" resultType="com.project.childprj.domain.User">
         <include refid="SELECT_BASE"/>
         AND name = #{name}

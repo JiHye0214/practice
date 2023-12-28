@@ -51,6 +51,10 @@
 .noZzimWrap > img {
     margin-bottom: 40px;
     width: 100px;
+
+    &:hover {
+        cursor: default;
+    }
 }
 
 .noZzimWrap > div {

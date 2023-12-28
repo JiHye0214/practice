@@ -1,6 +1,5 @@
 package com.project.childprj.controller;
 
-import com.project.childprj.domain.Kindergarden;
 import com.project.childprj.service.ChildCenterService;
 import com.project.childprj.service.ChildHouseService;
 import com.project.childprj.service.KindergardenService;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/protect")

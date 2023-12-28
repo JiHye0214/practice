@@ -3,8 +3,6 @@ package com.project.childprj.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.project.childprj.domain.Together;
-import com.project.childprj.domain.User;
-import com.project.childprj.domain.Zzim;
 import com.project.childprj.repository.TogetherRepository;
 import com.project.childprj.repository.ZzimRepository;
 import com.project.childprj.util.U;
@@ -16,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TogetherServiceImpl implements TogetherService {
@@ -46,8 +41,8 @@ public class TogetherServiceImpl implements TogetherService {
 
     @Override
     public ResponseEntity<Integer> saveTogether(Integer startIndex, Integer endIndex) {
-        String type = "json"; // 요청 파일 타입
-        String service = "culturalEventInfo"; // 서비스명
+        String type = "json";
+        String service = "culturalEventInfo";
 
         String uri = String.format("http://openapi.seoul.go.kr:8088/%s/%s/%s/%d/%d",
                 SeoulDataKey, type, service, startIndex, endIndex);
@@ -63,7 +58,6 @@ public class TogetherServiceImpl implements TogetherService {
                     int result = 0;
                     JsonNode rootNode = U.jsonToJsonNode(jsonData);
 
-                    // culturalEventInfo > row 데이터를 꺼냄
                     ArrayNode rows = (ArrayNode) rootNode.get("culturalEventInfo").get("row");
                     for (JsonNode row : rows) {
                         Together together = Together.fromJson(row);
@@ -72,16 +66,13 @@ public class TogetherServiceImpl implements TogetherService {
 
                     return ResponseEntity.ok(result);
                 } else {
-                    // API 응답이 비어있는 경우에 대한 처리
-                    return ResponseEntity.status(204).body(null); // No Content
+                    return ResponseEntity.status(204).body(null);
                 }
             } else {
-                // 실패했을 경우에 대한 처리
                 return ResponseEntity.status(response.getStatusCode()).body(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // 예외 처리
             return ResponseEntity.status(500).body(null);
         }
     }
@@ -108,7 +99,6 @@ public class TogetherServiceImpl implements TogetherService {
         String user = "" + SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String logged = null;
 
-        // 전체 isZzimClicked "false" 로 변경
         togetherRepository.changeAllZzimClicked();
 
         if (!user.equals("anonymousUser")) {
@@ -121,7 +111,6 @@ public class TogetherServiceImpl implements TogetherService {
                 for (var together : allTogether) {
                     boolean isZzimChecked = zzimService.isZzimChecked(userId, together.getId());
 
-                    // 찜 되어있는 together 는 "true" 로 변경
                     if (isZzimChecked) {
                         togetherRepository.changeIsZzimClicked("true", together.getId());
                     }
@@ -173,7 +162,6 @@ public class TogetherServiceImpl implements TogetherService {
         String user = "" + SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String logged = null;
 
-        // 전체 isZzimClicked "false" 로 변경
         togetherRepository.changeAllZzimClicked();
 
         if (!user.equals("anonymousUser")) {
@@ -186,14 +174,11 @@ public class TogetherServiceImpl implements TogetherService {
                 for (var together : allTogether) {
                     boolean isZzimChecked = zzimService.isZzimChecked(userId, together.getId());
 
-                    // 찜 되어있는 together 는 "true" 로 변경
                     if (isZzimChecked) {
                         togetherRepository.changeIsZzimClicked("true", together.getId());
                     }
                 }
             }
-
-            System.out.println("로그인됨 : " + userId);
 
             logged = "true";
         }
@@ -201,7 +186,7 @@ public class TogetherServiceImpl implements TogetherService {
         model.addAttribute("type", type);
         model.addAttribute("logged", logged);
 
-        return logged; // 의미 없는 값
+        return logged;
     }
 
     @Override
@@ -219,13 +204,11 @@ public class TogetherServiceImpl implements TogetherService {
         return togetherRepository.changeIsZzimClicked(bool, id);
     }
 
-    // home -- select five
     @Override
     public List<Together> selectFive() {
         return togetherRepository.selectFive();
     }
 
-    // 타입 넣기
     @Override
     public int changeType1() {
         return togetherRepository.changeType1();

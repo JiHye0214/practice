@@ -5,24 +5,6 @@
 
 <mapper namespace="com.project.childprj.repository.TogetherRepository">
 
-<!--    <resultMap id="togetherResultMap" type="com.project.childprj.domain.Together">-->
-<!--        <id property="id" column="id" />-->
-<!--        <result property="CODENAME" column="CODENAME" />-->
-<!--        <result property="GUNAME" column="GUNAME" />-->
-<!--        <result property="TITLE" column="TITLE" />-->
-<!--        <result property="DATE" column="DATE" />-->
-<!--        <result property="PLACE" column="PLACE" />-->
-<!--        <result property="ORG_NAME" column="ORG_NAME" />-->
-<!--        <result property="USE_TRGT" column="USE_TRGT" />-->
-<!--        <result property="USE_FEE" column="USE_FEE" />-->
-<!--        <result property="ORG_LINK" column="ORG_LINK" />-->
-<!--        <result property="MAIN_IMG" column="MAIN_IMG" />-->
-<!--        <result property="STRTDATE" column="STRTDATE" />-->
-<!--        <result property="END_DATE" column="END_DATE" />-->
-<!--        <result property="LOT" column="LOT" />-->
-<!--        <result property="LAT" column="LAT" />-->
-<!--    </resultMap>-->
-
     <insert id="insertTogether" flushCache="true" parameterType="com.project.childprj.domain.Together">
         INSERT INTO together (CODENAME, GUNAME, TITLE, DATE, PLACE, ORG_NAME, USE_TRGT, USE_FEE, ORG_LINK,
                               MAIN_IMG, STRTDATE, END_DATE, LOT, LAT)

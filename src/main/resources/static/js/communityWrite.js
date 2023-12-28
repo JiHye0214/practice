@@ -5,8 +5,6 @@ $("#content").summernote({
 });
 $(".note-placeholder")[0].style.color = "rgb(190, 190, 190)";
 
-// validation
-
 const titleInput = document.querySelector("#title");
 const writeBtn = document.querySelector("#submit-btn");
 const errMsgs = document.querySelectorAll(".err-msg");

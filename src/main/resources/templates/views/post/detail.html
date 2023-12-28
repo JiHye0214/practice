@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
 <script th:unless="${post}" th:inline="javascript">
     alert("페이지가 존재하지 않습니다");
@@ -19,13 +18,10 @@
         <title>커뮤니티 상세</title>
     </head>
     <body>
-        <!--/* header */-->
         <th:block th:insert="~{fragment/header::header}"></th:block>
 
-        <!--/* main */-->
         <div class="main">
             <div class="talk-wrapper">
-                <!--/* community header */-->
                 <div class="talk-header-wrap">
                     <div class="talk-header">
                         <img th:src="@{'/upload/' + ${writerImg.fileName}}" height="40px" width="40px" class="talk-writer-pic" />
@@ -47,17 +43,14 @@
                     </div>
                 </div>
 
-                <!--/* community main */-->
                 <div class="talk-main">
                     <div class="talk-main-title" th:text="${post.title}"></div>
                     <div class="talk-main-content" th:utext="${post.content}"></div>
                     <div class="talk-main-btn">
-                        <!-- 추 -> 비추 -->
                         <form method="POST" name="opposite" th:action="@{/post/opposite}" th:if="${check}" class="talk-left-btn-wrap recommend">
                             <input type="hidden" name="id" th:value="${post.id}">
                             <input type="button" class="raise-btn talk-btn" onclick="clickOpposite()" th:value="추천"/>
                         </form>
-                        <!-- 비추 -> 추 -->
                         <form method="POST" name="recommend" th:action="@{/post/recommend}" th:unless="${check}" class="talk-left-btn-wrap opposite">
                             <input type="hidden" name="id" th:value="${post.id}">
                             <input type="button" class="raise-btn talk-btn" onclick="clickRecommend()" th:value="추천"/>
@@ -74,12 +67,10 @@
                     </div>
                 </div>
 
-                <!--/* community comment */-->
                 <th:block th:insert="~{post/comment::postComment}"></th:block>
             </div>
         </div>
 
-        <!--/* footer */-->
         <th:block th:insert="~{fragment/footer::footer}"></th:block>
     </body>
 </th:block>

@@ -1,7 +1,6 @@
 package com.project.childprj.service;
 
 import com.project.childprj.domain.Together;
-import com.project.childprj.domain.User;
 import com.project.childprj.domain.Zzim;
 import com.project.childprj.repository.*;
 import com.project.childprj.util.U;
@@ -9,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import java.util.List;
 
 @Service
@@ -57,12 +55,9 @@ public class ZzimServiceImpl implements ZzimService {
             page = 0;
         }
 
-//        System.out.println("===================================" + zzims);
-
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("rowsPerPage", rowsPerPage);
-
         model.addAttribute("url", U.getRequest().getRequestURI());
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
@@ -84,8 +79,6 @@ public class ZzimServiceImpl implements ZzimService {
         Zzim zzim = new Zzim();
         zzim.setUserId(userId);
         zzim.setTogether(together);
-
-//        System.out.println(zzim);
 
         int cnt = zzimRepository.insertZzim(zzim);
 

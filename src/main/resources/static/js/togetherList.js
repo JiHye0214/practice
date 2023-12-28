@@ -22,8 +22,6 @@ heartsBtns.forEach((heart, i) => {
     });
 });
 
-// --------------------------------------------------
-
 const types = document.querySelectorAll(".type");
 const typeValInput = document.querySelector("#type-val-input");
 const typeVal = document.querySelector("#type-val");

@@ -4,7 +4,6 @@ const warnMsgArr = document.querySelectorAll(".login-warn")
 const $signupBtn = document.querySelector(".signup-btn")
 const $signValid = document.querySelector(".sign-valid")
 
-// 이메일 정규표현식
 let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 
 const signUpValidation = () => {
@@ -14,7 +13,6 @@ const signUpValidation = () => {
     let pwCheck = false;
     let emailCheck = false;
 
-    // 모두 입력 valid
     for(let i=0; i<inputArr.length; i++) {
         let input = inputArr[i].value;
         if(input == "") {
@@ -25,7 +23,6 @@ const signUpValidation = () => {
         }
     }
 
-    // 아이디 6자 ~
     if(inputArr[0].value != ""){
         if(inputArr[0].value.length < 6){
             warnMsgArr[0].innerHTML = "아이디는 6자 이상으로 입력해 주세요";
@@ -34,14 +31,12 @@ const signUpValidation = () => {
         }
     }
 
-    // 비밀번호 일치 확인
     if(inputArr[1].value == inputArr[2].value){
         pwCheck = true;
     } else {
         warnMsgArr[2].innerHTML = "비밀번호가 일치하지 않습니다";
     }
 
-    // 이메일 정규표현식 확인
     let email = inputArr[4].value;
     if(email != ""){
         if(regex.test(email)){
@@ -51,7 +46,6 @@ const signUpValidation = () => {
         }
     }
 
-    // submit
      if(count == 6 && idCheck && pwCheck && emailCheck) {
         document.forms["signup"].submit();
      }

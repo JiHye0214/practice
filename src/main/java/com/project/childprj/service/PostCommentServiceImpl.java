@@ -2,7 +2,6 @@ package com.project.childprj.service;
 
 import com.project.childprj.domain.PostComment;
 import com.project.childprj.repository.PostCommentRepository;
-import com.project.childprj.repository.PostRepository;
 import com.project.childprj.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ public class PostCommentServiceImpl implements PostCommentService{
         postCommentRepository = sqlSession.getMapper(PostCommentRepository.class);
     }
 
-    // 특정 글의 댓글 목록
     @Override
     public List<PostComment> cmtList(Long postId) {
         return postCommentRepository.findCommentById(postId);
@@ -30,13 +28,11 @@ public class PostCommentServiceImpl implements PostCommentService{
 
     @Override
     public int cmtWrite(Long userId, Long postId, String content) {
-
         return postCommentRepository.cmtWrite(userId, postId, content);
     }
 
     @Override
     public int cmtRemove(Long commentId) {
-
         return postCommentRepository.cmtRemove(commentId);
     }
 }

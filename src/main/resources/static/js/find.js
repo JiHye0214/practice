@@ -4,9 +4,7 @@ const openBtnArr = document.querySelectorAll(".menu-open");
 const closeBtnArr = document.querySelectorAll(".menu-close");
 const writeWrap = document.querySelector(".findWrap");
 
-const stateArr = [false, false, false]; // ~ 찾기 open state
-
-// 누르면 열리기---------------------------------------------------
+const stateArr = [false, false, false];
 
 if(writeWrap != null){
     const clickHiddenMenuBtn = (index) => {
@@ -30,9 +28,6 @@ if(writeWrap != null){
     }
 }
 
-
-// find form valid---------------------------------------------------
-
 const findBtnArr = document.querySelectorAll(".find-btn");
 const findFromArr = document.querySelectorAll(".find-input-wrap");
 const errMsgArr = document.querySelectorAll(".findWrap .login-warn");
@@ -47,7 +42,6 @@ window.onload = function() {
 if(writeWrap != null){
     const clickFindBtn = (index) => {
 
-        // 모두 입력 확인
         const firstChild = findFromArr[index].children[0];
         const secondChild = findFromArr[index].children[1];
 
@@ -73,7 +67,6 @@ if(writeWrap != null){
     }
 }
 
-// change pw valid---------------------------------------------------
 const changeWrap = document.querySelector("#changePw");
 const errMsgArr2 = document.querySelectorAll(".giveIdWrap .login-warn");
 const $complete = document.querySelector(".change-pw-complete");
@@ -87,7 +80,6 @@ if(changeWrap != null){
         let count = 0;
         let pwCheck = false;
 
-        // 모두 입력 valid
         for(let i=0; i<inputArr.length; i++) {
             let input = inputArr[i].value;
             if(input == "") {
@@ -100,14 +92,12 @@ if(changeWrap != null){
             }
         }
 
-        // 비밀번호 일치 확인
         if(inputArr[0].value == inputArr[1].value){
             pwCheck = true;
         } else {
             errMsgArr2[1].innerHTML = "비밀번호가 일치하지 않습니다";
         }
 
-        // submit
         if(count == 2 && pwCheck == true) {
             changeForm.submit();
         }

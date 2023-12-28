@@ -17,8 +17,6 @@ public class UserInformationService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        System.out.println("loadUserByUsername is called() -- " + username);
-
         // DB 조회하기
         User user = userService.findByLogId(username);
 

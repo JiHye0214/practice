@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ public class ChildCenterServiceImpl implements ChildCenterService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        // BODY를 JSON 문자열 대신 JSONObject
         ResponseEntity<JSONObject> response = restTemplate.getForEntity(uri, JSONObject.class);
 
         if (response.getStatusCode().is2xxSuccessful()) {
@@ -36,7 +34,6 @@ public class ChildCenterServiceImpl implements ChildCenterService {
             if (body != null && !body.isEmpty()) {
                 Map<String, Object> data = (Map<String, Object>) body.get(service);
 
-                // json에서 row키를 추출해서 List 형태로 반환
                 return (List<Map<String, Object>>) data.get("row");
             }
         }
@@ -84,16 +81,9 @@ public class ChildCenterServiceImpl implements ChildCenterService {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("rowsPerPage", rowsPerPage);
         model.addAttribute("type", type);
-
         model.addAttribute("url", U.getRequest().getRequestURI());
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-
-//        System.out.println(((ArrayList)childCenters).size());
-//        System.out.println(((ArrayList)childCenters).getClass().getSimpleName());
-//        System.out.println(((Object)childCenters).getClass().getSimpleName());
-//        System.out.println(totalLength);
-//        System.out.println(totalPage);
 
         return childCenters;
     }

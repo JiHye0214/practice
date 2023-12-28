@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8" />
@@ -15,10 +14,8 @@
         <title>지켜주기 상세</title>
     </head>
     <body>
-        <!--/* header */-->
         <th:block th:insert="~{fragment/header::header}"></th:block>
 
-        <!--/* section */-->
         <div id="protectDetail-wrap">
             <div id="route-wrap">
                 <a th:href="@{'/protect/list?type=' + ${type}}" th:text="${type}"></a>
@@ -99,7 +96,6 @@
             </div>
         </div>
 
-        <!--/* footer */-->
         <th:block th:insert="~{fragment/footer::footer}"></th:block>
     </body>
 </html>

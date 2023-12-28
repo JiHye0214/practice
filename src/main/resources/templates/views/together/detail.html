@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8" />
@@ -15,10 +14,8 @@
         <title>함께하기 상세</title>
     </head>
     <body >
-        <!--/* header */-->
         <th:block th:insert="~{fragment/header::header}"></th:block>
 
-        <!--/* section */-->
         <div id="togetherDetail-wrap">
             <input type="hidden" th:value="${logged}" id="logged" />
 
@@ -87,7 +84,6 @@
             </div>
         </div>
 
-        <!--/* footer */-->
         <th:block th:insert="~{fragment/footer::footer}"></th:block>
     </body>
 </html>

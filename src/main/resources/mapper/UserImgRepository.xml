@@ -5,20 +5,17 @@
 
 <mapper namespace="com.project.childprj.repository.UserImgRepository">
 
-    <!-- 특정 유저 프사 가져오기 -->
     <select id="findUserImg" resultType="com.project.childprj.domain.UserImg">
         SELECT *
         FROM user_img
         WHERE userId = #{userId}
     </select>
 
-    <!--프사 넣기-->
     <insert id="imgInsert" flushCache="true" parameterType="com.project.childprj.domain.UserImg">
         INSERT INTO user_img (userId, sourceName, fileName)
         VALUES (#{userId}, #{sourceName}, #{fileName})
     </insert>
 
-    <!--프사 지우기-->
     <delete id="imgDelete" flushCache="true" parameterType="com.project.childprj.domain.UserImg">
         DELETE from user_img
         WHERE userId = #{userId}

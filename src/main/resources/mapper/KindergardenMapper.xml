@@ -5,18 +5,6 @@
 
 <mapper namespace="com.project.childprj.repository.KindergardenRepository">
 
-<!--    <resultMap id="kindergardenResultMap" type="com.project.childprj.domain.Kindergarden">-->
-<!--        <id property="id" column="id" />-->
-<!--        <result property="KINDERNAME" column="KINDERNAME" />-->
-<!--        <result property="ESTABLISH" column="ESTABLISH" />-->
-<!--        <result property="LDGRNAME" column="LDGRNAME" />-->
-<!--        <result property="ODATE" column="ODATE" />-->
-<!--        <result property="ADDR" column="ADDR" />-->
-<!--        <result property="TELNO" column="TELNO" />-->
-<!--        <result property="HPADDR" column="HPADDR" />-->
-<!--        <result property="OPERTIME" column="OPERTIME" />-->
-<!--    </resultMap>-->
-
     <insert id="insertKindergarden" flushCache="true" parameterType="com.project.childprj.domain.Kindergarden">
         INSERT INTO kindergarden (KINDERNAME, ESTABLISH, LDGRNAME, ODATE, ADDR, TELNO, HPADDR, OPERTIME)
         VALUES (#{KINDERNAME}, #{ESTABLISH}, #{LDGRNAME}, #{ODATE}, #{ADDR}, #{TELNO}, #{HPADDR}, #{OPERTIME})

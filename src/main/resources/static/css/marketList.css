@@ -44,6 +44,10 @@
 .noProductWrap > img {
     margin-bottom: 40px;
     width: 100px;
+
+    &:hover {
+        cursor: default;
+    }
 }
 
 .noProductWrap > div {

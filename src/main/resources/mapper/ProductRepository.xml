@@ -26,7 +26,6 @@
         <collection resultMap="mapUser" property="user"/>
     </resultMap>
 
-    <!-- 특정 글 -->
     <sql id="SELECT_BASE">
         SELECT p.id          "p_id"
              , p.productName "p_productName"

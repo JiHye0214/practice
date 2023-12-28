@@ -37,7 +37,6 @@ $togetherTitle.addEventListener("mouseout", mouseOut);
 $protectTitle.addEventListener("mouseout", mouseOut);
 $raiseTitle.addEventListener("mouseout", mouseOut);
 
-// graph
 const graphWrap = document.querySelectorAll(".table");
 
 for(let i=0; i<graphWrap.length; i++){
@@ -46,7 +45,7 @@ for(let i=0; i<graphWrap.length; i++){
         graphWrap[i].children[j].children[0].innerText = j;
     }
 }
-//-----------------------------------------------------------------
+
 const valueArr1 = document.querySelectorAll("#value1");
 const valueArr2 = document.querySelectorAll("#value2");
 const arrWrap = [valueArr1, valueArr2];
@@ -54,16 +53,14 @@ const arrWrap = [valueArr1, valueArr2];
 let num = 1;
 for( valueArr of arrWrap ){
 
-    const resultArr = []; // 최종 배열 (객체 든 배열)
+    const resultArr = [];
     const regionArr = [];
 
-    // 25개 빈 배열
     const guCount = [];
     for(let i=0; i<25; i++){
         guCount[i] = 0;
     }
 
-    // 구 이름 배열
     const guNames = [
         "강남구",
         "강동구",
@@ -92,7 +89,6 @@ for( valueArr of arrWrap ){
         "중랑구",
     ];
 
-    // 객체 25개 들어간 배열 만들기
     for(let i=0; i<25; i++){
         let data = {};
         data.region = guNames[i];
@@ -101,9 +97,8 @@ for( valueArr of arrWrap ){
         resultArr.push(data);
     }
 
-    // 지역 count
     for(let i=0; i<valueArr.length; i++) {
-        regionArr[i] = valueArr[i].value.split(" "); // 글자 나누기
+        regionArr[i] = valueArr[i].value.split(" ");
 
         for(let j=0; j<25; j++){
             if(regionArr[i][1] == resultArr[j].region){
@@ -112,18 +107,15 @@ for( valueArr of arrWrap ){
         }
     }
 
-    // 정렬
     let result = resultArr.sort(function (b, a) {
         return a.count - b.count;
     });
 
-    // 5개만 추려
     result = result.slice(0, 5);
 
     let graphText = null;
     let graphBar = null;
 
-    // 5개 이름 그리기
     if(num == 1) {
         graphText = document.querySelector(".graphText1");
         graphBar = document.querySelector(".graphBar1");
@@ -133,13 +125,11 @@ for( valueArr of arrWrap ){
         graphBar = document.querySelector(".graphBar2");
     }
 
-    // text
     for(let i=0; i<5; i++){
         let text = result[i].region;
         graphText.innerHTML += `<div class="gu">${text}</div>`;
     }
 
-    // bar
     for(let i=0; i<5; i++){
         let count = result[i].count;
         if(num == 1){
@@ -149,8 +139,6 @@ for( valueArr of arrWrap ){
         }
     }
 
-    // bar setting
-
     let graphBarArr = null;
     if(num == 1){
         graphBarArr = document.querySelectorAll(".count1");
@@ -159,8 +147,6 @@ for( valueArr of arrWrap ){
     }
 
     for(let i=0; i<5; i++){
-
-        // bar 높이 비율
         let count = result[i].count * 3.5;
         graphBarArr[i].style.height = `${count}%`;
     }

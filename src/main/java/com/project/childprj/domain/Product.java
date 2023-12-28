@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -13,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Product {
-    private Long id; // 글 아이디(int)
+    private Long id;
     private String productName;
     private String region;
     private Long price;

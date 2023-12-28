@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8" />
@@ -33,10 +32,8 @@
             </div>
         </div>
 
-        <!--/* header */-->
         <th:block th:insert="~{fragment/header::header}"></th:block>
 
-        <!--/* main */-->
         <main class="main">
             <div class="mypage-wrapper">
                 <div class="mypage-title">마이페이지</div>
@@ -107,7 +104,6 @@
             </div>
         </main>
 
-        <!--/* footer */-->
         <th:block th:insert="~{fragment/footer::footer}"></th:block>
     </body>
 </html>

@@ -5,16 +5,13 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.project.childprj.domain.Kindergarden;
 import com.project.childprj.repository.KindergardenRepository;
 import com.project.childprj.util.U;
-import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 
 @Service
@@ -37,8 +34,8 @@ public class KindergardenServiceImpl implements KindergardenService {
 
     @Override
     public ResponseEntity<Integer> saveKindergarden(Integer startIndex, Integer endIndex) {
-        String type = "json"; // 요청 파일 타입
-        String service = "childSchoolInfo"; // 서비스명
+        String type = "json";
+        String service = "childSchoolInfo";
 
         String uri = String.format("http://openapi.seoul.go.kr:8088/%s/%s/%s/%d/%d",
                 kinderKey, type, service, startIndex, endIndex);
@@ -54,7 +51,6 @@ public class KindergardenServiceImpl implements KindergardenService {
                     int result = 0;
                     JsonNode rootNode = U.jsonToJsonNode(jsonData);
 
-                    // childSchoolInfo > row 데이터를 꺼냄
                     ArrayNode rows = (ArrayNode) rootNode.get("childSchoolInfo").get("row");
                     for (JsonNode row : rows) {
                         Kindergarden kindergarden = Kindergarden.fromJson(row);
@@ -63,16 +59,13 @@ public class KindergardenServiceImpl implements KindergardenService {
 
                     return ResponseEntity.ok(result);
                 } else {
-                    // API 응답이 비어있는 경우에 대한 처리
-                    return ResponseEntity.status(204).body(null); // No Content
+                    return ResponseEntity.status(204).body(null);
                 }
             } else {
-                // 실패했을 경우에 대한 처리
                 return ResponseEntity.status(response.getStatusCode()).body(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // 예외 처리
             return ResponseEntity.status(500).body(null);
         }
     }
@@ -125,7 +118,6 @@ public class KindergardenServiceImpl implements KindergardenService {
         return kindergardenRepository.selectKindergarden(id);
     }
 
-    // 전체 조회
     @Override
     public List<Kindergarden> selectAll() {
         return kindergardenRepository.selectAll();

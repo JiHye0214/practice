@@ -1,14 +1,10 @@
 package com.project.childprj.config;
 
 import com.project.childprj.domain.User;
-import com.project.childprj.domain.UserAuthority;
 import com.project.childprj.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class UserInformation implements UserDetails {
 
@@ -21,14 +17,12 @@ public class UserInformation implements UserDetails {
     public User getUser (){ return user; }
 
     public UserInformation (User user){
-        System.out.println("UserInformation is called() -- " + user);
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         user.setAuthority(userService.selectUserAuth(user.getId()));
-        System.out.println("-------user-------" + user);
         return null;
     }
 

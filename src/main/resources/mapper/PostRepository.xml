@@ -26,7 +26,6 @@
         <collection resultMap="mapUser" property="user"/>
     </resultMap>
 
-    <!-- 특정 글 -->
     <sql id="SELECT_BASE">
         SELECT p.id           "p_id"
              , p.title        "p_title"
@@ -46,7 +45,6 @@
         WHERE p.userId = u.id
     </sql>
 
-    <!-- 최신순 조회 -->
     <select id="selectFromCntOrderByDate" resultMap="mapPost">
         <include refid="SELECT_BASE"/>
           AND (p.title LIKE concat('%', #{sq}, '%')
@@ -55,7 +53,6 @@
         LIMIT #{from}, #{cnts}
     </select>
 
-    <!-- 추천순 조회 -->
     <select id="selectFromCntOrderByRcmCnt" resultMap="mapPost">
         <include refid="SELECT_BASE"/>
           AND (p.title LIKE concat('%', #{sq}, '%')
@@ -64,7 +61,6 @@
         LIMIT #{from}, #{cnts}
     </select>
 
-    <!-- 글 개수 조회 -->
     <select id="selectCountAll" resultType="int">
         SELECT Count(*)
           FROM post p, user u
@@ -73,48 +69,41 @@
             OR u.nickName LIKE concat('%', #{sq}, '%'))
     </select>
 
-    <!-- 글 작성 -->
     <insert id="insert" flushCache="true" parameterType="com.project.childprj.domain.Post"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO post(title, content, userId)
         VALUES (#{title}, #{content}, #{user.id})
     </insert>
 
-    <!-- 특정 글 내용 -->
     <select id="findPostById" resultMap="mapPost">
         <include refid="SELECT_BASE"/>
         AND p.id = #{id}
     </select>
 
-    <!-- 특정 글 조회수 -->
     <update id="incViewCnt" flushCache="true">
         UPDATE post
         SET viewCnt = viewCnt + 1
         WHERE id = #{id}
     </update>
 
-    <!-- 추천 수 올리기 -->
     <update id="incRecomCnt" flushCache="true">
         UPDATE post
         SET recommendCnt = recommendCnt + 1
         WHERE id = #{id}
     </update>
 
-    <!-- 추천 수 내리기 -->
     <update id="decRecomCnt" flushCache="true">
         UPDATE post
         SET recommendCnt = recommendCnt - 1
         WHERE id = #{id}
     </update>
 
-    <!-- 특정 글 삭제 -->
     <delete id="detailDelete" flushCache="true">
         DELETE
         FROM post
         WHERE id = #{id}
     </delete>
 
-    <!-- 글 수정 -->
     <update id="update" flushCache="true" parameterType="com.project.childprj.domain.Post">
         UPDATE post
            SET title   = #{title}
@@ -122,7 +111,6 @@
          WHERE id = #{id}
     </update>
 
-    <!--home 추천순 5-->
     <select id="selectFive" resultMap="mapPost">
         <include refid="SELECT_BASE"/>
         ORDER BY recommendCnt DESC

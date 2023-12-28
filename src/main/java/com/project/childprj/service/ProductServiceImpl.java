@@ -1,32 +1,26 @@
 package com.project.childprj.service;
 
 
-import com.project.childprj.domain.Post;
 import com.project.childprj.domain.Product;
 import com.project.childprj.domain.ProductImg;
 import com.project.childprj.domain.User;
-import com.project.childprj.repository.ProductCommentRepository;
 import com.project.childprj.repository.ProductImgRepository;
 import com.project.childprj.repository.ProductRepository;
 import com.project.childprj.repository.UserRepository;
 import com.project.childprj.util.U;
-import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,11 +42,9 @@ public class ProductServiceImpl implements ProductService {
         userRepository = sqlSession.getMapper(UserRepository.class);
     }
 
-    // 글 목록 조회 (페이징 + 검색어)
     @Override
     public List<Product> list(Integer page, String sq, String productOrderWay, Model model) {
 
-        // 검색결과 없을 때 정렬 --> 전체 보여주기 방지
         String validSq = sq;
 
         if (page < 1) page = 1;
@@ -67,7 +59,6 @@ public class ProductServiceImpl implements ProductService {
         int startPage = 0;
         int endPage = 0;
 
-        // null --> 서치 시 없으면 에러남
         List<Product> products = new ArrayList<>();
 
         if (totalLength > 0) {
@@ -99,15 +90,13 @@ public class ProductServiceImpl implements ProductService {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        // 이미지 나열
         for(Product e : products){
-            e.setProductImg(productImgRepository.findByProduct(e.getId())); // 아이디로 이미지 찾아서 객체 세팅
+            e.setProductImg(productImgRepository.findByProduct(e.getId()));
         }
 
         return products;
     }
 
-    // 글 작성
     public int write(Product product) {
         User user = U.getLoggedUser();
 
@@ -119,7 +108,6 @@ public class ProductServiceImpl implements ProductService {
         return cnt;
     }
 
-    // 특정 글 가져오기
     @Override
     public Product productDetail(Long id) {
         return productRepository.findProductById(id);
@@ -130,36 +118,30 @@ public class ProductServiceImpl implements ProductService {
         productRepository.incViewCnt(id);
     }
 
-    // 특정 글 삭제
     @Override
     public int detailDelete(Long id) {
         return productRepository.detailDelete(id);
     }
 
-    // 글 수정
     @Override
     public int update(Product product) {
         int result = productRepository.update(product);
         return result;
     }
 
-    // 사진 불러오기
     @Override
     public ProductImg findByProduct(Long productId) {
         return productImgRepository.findByProduct(productId);
     }
 
-    // 대표 사진 등록
     @Override
     public boolean imgInsert(Map<String, MultipartFile> file, Long productId) {
-
         changeImg(file, productId);
         return (file != null);
     }
 
     private void changeImg(Map<String, MultipartFile> file, Long productId){
 
-        // 배사 있으면 삭제
         if(productImgRepository.findByProduct(productId) != null){
             productImgRepository.imgDelete(productId);
         }
@@ -168,13 +150,10 @@ public class ProductServiceImpl implements ProductService {
 
         for(Map.Entry<String, MultipartFile> e : file.entrySet()){
 
-            // 시작 이름 설정
             if(!e.getKey().startsWith("product")) continue;
 
-            // 물리적 저장
             ProductImg productImg = upload(e.getValue());
 
-            // DB 저장
             if(productImg != null){
                 productImg.setProductId(productId);
                 productImgRepository.imgInsert(productImg);
@@ -194,35 +173,28 @@ public class ProductServiceImpl implements ProductService {
             sourceName = "default.jpg";
             fileName = sourceName;
         } else {
-            sourceName = StringUtils.cleanPath(originalFileName); // 경로 깨끗?
+            sourceName = StringUtils.cleanPath(originalFileName);
 
-            // 저장될 파일명
-            fileName = sourceName; // 일단 같은 이름으로 저장
+            fileName = sourceName;
 
-            File file = new File(uploadDir, fileName); // 중복 확인
+            File file = new File(uploadDir, fileName);
 
-            if(file.exists()){  // 이미 존재하는 파일명,  중복된다면 다른 이름은 변경하여 파일 저장
-                // a.txt => a_2378142783946.txt  : time stamp 값을 활용할 거다!
-                // "a" => "a_2378142783946" : 확장자 없는 경우
+            if(file.exists()){
 
                 int pos = fileName.lastIndexOf(".");
-                if(pos > -1){  // 확장자 있는 경우
-                    String name = fileName.substring(0, pos);   // 파일 '이름'
-                    String ext = fileName.substring(pos + 1);  // 파일 '확장자'
+                if(pos > -1){
+                    String name = fileName.substring(0, pos);
+                    String ext = fileName.substring(pos + 1);
 
                     fileName = name + "_" + System.currentTimeMillis() + "." + ext;
-                } else {  // 확장자 없는 경우
+                } else {
                     fileName += "_" + System.currentTimeMillis();
                 }
             }
 
-            // 파일 절대경로
             Path copyOfLocation = Paths.get(new File(uploadDir, fileName).getAbsolutePath());
 
             try {
-                // inputStream을 가져와서
-                // copyOfLocation (저장위치)로 파일을 쓴다.
-                // copy의 옵션은 기존에 존재하면 REPLACE(대체한다), 오버라이딩 한다
                 Files.copy(
                         multipartFile.getInputStream(),
                         copyOfLocation,
@@ -241,7 +213,6 @@ public class ProductServiceImpl implements ProductService {
         return productImg;
     }
 
-    // home -- hot five
     @Override
     public List<Product> selectFive() {
         return productRepository.selectFive();

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8" />
@@ -14,13 +13,10 @@
         <title>커뮤니티</title>
     </head>
     <body>
-        <!--/* header */-->
         <th:block th:insert="~{fragment/header::header}"></th:block>
 
-        <!--/* section */-->
         <div id="communityList-wrap">
 
-            <!-- raise alert modal -->
             <th:block>
                 <div class="raise-alert-modal">
                     <div class="modal-wrap">
@@ -33,7 +29,6 @@
                 </div>
             </th:block>
 
-            <!-- content -->
             <div id="txt-section">
                 질문하고 소통해요! &nbsp;
                 <span>커뮤니티</span>
@@ -99,7 +94,6 @@
             </div>
         </div>
 
-        <!--/* footer */-->
         <th:block th:insert="~{fragment/footer::footer}"></th:block>
     </body>
 </html>

@@ -17,16 +17,15 @@ public class Kindergarden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String KINDERNAME;  // 유치원명
-    private String ESTABLISH;   // 설립유형
-    private String LDGRNAME;    // 원장명
-    private String ODATE;       // 개원일
-    private String ADDR;        // 주소
-    private String TELNO;       // 전화번호
-    private String HPADDR;      // 홈페이지
-    private String OPERTIME;    // 운영시간
+    private String KINDERNAME;
+    private String ESTABLISH;
+    private String LDGRNAME;
+    private String ODATE;
+    private String ADDR;
+    private String TELNO;
+    private String HPADDR;
+    private String OPERTIME;
 
-    // api의 row에서 객체의 각각 필드에 설정
     public static Kindergarden fromJson(JsonNode row) {
         Kindergarden kindergarden = new Kindergarden();
 
@@ -41,11 +40,4 @@ public class Kindergarden {
 
         return kindergarden;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Kindergarden [id=" + id + ", KINDERNAME=" + KINDERNAME + ", ESTABLISH=" + ESTABLISH + ", LDGRNAME=" + LDGRNAME +
-//                ", ODATE=" + ODATE + ", ADDR=" + ADDR + ", TELNO=" + TELNO + ", HPADDR=" + HPADDR + ", OPERTIME=" + OPERTIME + "]";
-//    }
-
 }

@@ -18,7 +18,6 @@ const $dropUser = document.querySelector(".drop-user");
 
 const $body = document.querySelector("body");
 
-// 닉네임 변경
 const clickNickNameChangeBtn = () => {
     $nickname.style.display = `none`;
     $nicknameChangeBtn.style.display = `none`;
@@ -39,7 +38,6 @@ const clickNickNameChangeCompleteBtn = () => {
     }
 };
 
-// 비밀번호 변경
 const clickPasswordChangeBtn = () => {
     $changePwBtn.style.display = `none`;
     $changePwWrap.style.display = `block`;
@@ -50,7 +48,6 @@ const clickPasswordChangeCompleteBtn = () => {
     let count = 0;
     let pwCheck = false;
 
-    // 모두 입력헀는지
     for(let i=0; i<pwInputArr.length; i++){
         let input = pwInputArr[i].value;
         if(input == ""){
@@ -61,7 +58,6 @@ const clickPasswordChangeCompleteBtn = () => {
         }
     }
 
-    // 비밀번호 일치 확인
     if(pwInputArr[0].value == pwInputArr[1].value){
         pwCheck = true;
     } else {
@@ -74,7 +70,6 @@ const clickPasswordChangeCompleteBtn = () => {
 
 };
 
-// 프사 변경
 const clickChangePicBtn = () => {
     if($changePic.value == ""){
         alert("이미지 파일을 선택해 주세요")
@@ -83,12 +78,10 @@ const clickChangePicBtn = () => {
     }
 };
 
-// 프사 초기화
 const clickResetPicBtn = () => {
     $changePicForm.submit();
 }
 
-// 회원 탈퇴
 const clickDropUserBtn = () => {
     const realDrop = confirm("정말 탈퇴하시겠습니까?");
     if (realDrop) {

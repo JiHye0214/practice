@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <script th:unless="${post}" th:inline="javascript">
         location.href = "/post/list";
@@ -21,13 +20,10 @@
             <title>커뮤니티 수정</title>
         </head>
         <body>
-            <!--/* header */-->
             <th:block th:insert="~{fragment/header::header}"></th:block>
 
-            <!--/* main */-->
             <div class="main">
                 <div class="talk-wrapper">
-                    <!--/* community header */-->
                     <div class="community-write-wrap">
                         <div class="talk-header">
                             <img th:src="@{'/upload/' + ${writerImg.fileName}}" height="40px" width="40px" class="talk-writer-pic" />
@@ -35,7 +31,6 @@
                         </div>
                     </div>
 
-                    <!--/* community write */-->
                     <form name="community-write-form" autocomplete="off" th:action="@{/post/update}" method="post">
                         <input type="hidden" name="id" th:value="${post.id}"/>
 
@@ -61,7 +56,6 @@
                 </div>
             </div>
 
-            <!--/* footer */-->
             <th:block th:insert="~{fragment/footer::footer}"></th:block>
         </body>
     </th:block>

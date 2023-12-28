@@ -2,9 +2,7 @@ package com.project.childprj.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.project.childprj.DTO.ChildHouseDTO;
 import com.project.childprj.domain.ChildHouse;
-import com.project.childprj.domain.Kindergarden;
 import com.project.childprj.repository.ChildHouseRepository;
 import com.project.childprj.util.U;
 import org.apache.ibatis.session.SqlSession;
@@ -14,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 
 @Service
@@ -37,8 +34,8 @@ public class ChildHouseServiceImpl implements ChildHouseService {
 
     @Override
     public ResponseEntity<Integer> saveChildHouse(Integer startIndex, Integer endIndex) {
-        String type = "json"; // 요청 파일 타입
-        String service = "ChildCareInfo"; // 서비스명
+        String type = "json";
+        String service = "ChildCareInfo";
 
         String uri = String.format("http://openapi.seoul.go.kr:8088/%s/%s/%s/%d/%d",
                 childHouseKey, type, service, startIndex, endIndex);
@@ -54,7 +51,6 @@ public class ChildHouseServiceImpl implements ChildHouseService {
                     int result = 0;
                     JsonNode rootNode = U.jsonToJsonNode(jsonData);
 
-                    // childSchoolInfo > row 데이터를 꺼냄
                     ArrayNode rows = (ArrayNode) rootNode.get("ChildCareInfo").get("row");
                     for (JsonNode row : rows) {
                         ChildHouse childHouse = ChildHouse.fromJson(row);
@@ -63,16 +59,13 @@ public class ChildHouseServiceImpl implements ChildHouseService {
 
                     return ResponseEntity.ok(result);
                 } else {
-                    // API 응답이 비어있는 경우에 대한 처리
-                    return ResponseEntity.status(204).body(null); // No Content
+                    return ResponseEntity.status(204).body(null);
                 }
             } else {
-                // 실패했을 경우에 대한 처리
                 return ResponseEntity.status(response.getStatusCode()).body(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // 예외 처리
             return ResponseEntity.status(500).body(null);
         }
     }
@@ -112,7 +105,6 @@ public class ChildHouseServiceImpl implements ChildHouseService {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("rowsPerPage", rowsPerPage);
         model.addAttribute("type", type);
-
         model.addAttribute("url", U.getRequest().getRequestURI());
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);

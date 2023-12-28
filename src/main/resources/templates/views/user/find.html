@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8" />
@@ -16,7 +15,6 @@
         <div class="all-wrapper">
             <a th:href="@{/home}"><img class="logo" src="/img/logo.png" /></a>
             <div class="find-inform-wrap">
-                <!-- 정보 맞을 때 (아이디) -->
                 <div th:if="${findId}" class="giveIdWrap">
                     <div class="option">
                         <a th:href="@{/user/find}">뒤로가기</a>
@@ -25,7 +23,6 @@
                     <div class="give-title">당신의 아이디는 <span>[[${user.loginId}]]</span> 입니다</div>
                 </div>
 
-                <!-- 정보 맞을 때 (비번 - id) -->
                 <div th:if="${findPwId} or ${findPwEmail}" id="changePw" class="giveIdWrap">
                     <a th:href="@{/user/find}">뒤로가기</a>
                     <div class="changePw">
@@ -45,7 +42,6 @@
                     </div>
                 </div>
 
-                <!-- 입력 -->
                 <div th:unless="${findId} or ${findPwId} or ${findPwEmail}" class="findWrap">
                     <div class="find-wrap">
                         <div class="find-title">1️⃣ 아이디 찾기</div>

@@ -31,7 +31,6 @@
         <collection resultMap="mapImg" property="userImg"/>
     </resultMap>
 
-    <!-- 특정 글 -->
     <select id="findCommentById" resultMap="mapComment">
         SELECT
             p.id "p_id",

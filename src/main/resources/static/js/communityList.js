@@ -1,4 +1,3 @@
-// raise alert modal
 const raiseModalClose = document.querySelector(".modal-close-btn");
 const raiseModalWrap = document.querySelector(".raise-alert-modal");
 
@@ -8,7 +7,6 @@ const clickModalClose = () => {
 
 raiseModalClose.addEventListener("click", clickModalClose);
 
-// content
 const searchInput = document.querySelector("#search-input");
 const searchInputVal = document.querySelector("#search-input-val");
 const initialBtn = document.querySelector("#initial-btn");

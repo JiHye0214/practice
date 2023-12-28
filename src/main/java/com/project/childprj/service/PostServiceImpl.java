@@ -7,12 +7,10 @@ import com.project.childprj.repository.PostRecommendRepository;
 import com.project.childprj.repository.PostRepository;
 import com.project.childprj.repository.UserRepository;
 import com.project.childprj.util.U;
-import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +28,9 @@ public class PostServiceImpl implements PostService{
         userRepository = sqlSession.getMapper(UserRepository.class);
     }
 
-    // 글 목록 조회 (페이징 + 검색어)
     @Override
     public List<Post> list(Integer page, String sq, String postOrderWay, Model model) {
 
-        // 검색결과 없을 때 정렬 --> 전체 보여주기 방지
         String validSq = sq;
 
         if (page < 1) page = 1;
@@ -49,7 +45,6 @@ public class PostServiceImpl implements PostService{
         int startPage = 0;
         int endPage = 0;
 
-        // null --> 서치 시 없으면 에러남
         List<Post> posts = new ArrayList<>();
 
         if (totalLength > 0) {
@@ -84,7 +79,6 @@ public class PostServiceImpl implements PostService{
         return posts;
     }
 
-    // 글 작성
     @Override
     public int write(Post post) {
         User user = U.getLoggedUser();
@@ -97,53 +91,45 @@ public class PostServiceImpl implements PostService{
         return cnt;
     }
 
-    // 특정 글 가져오기
     @Override
     public Post postDetail(Long id) {
         return postRepository.findPostById(id);
     }
 
-    // 조회수 올리기
     @Override
     public void incViewCnt(Long id) {
         postRepository.incViewCnt(id);
     }
 
-    // 특정 글 삭제
     @Override
     public int detailDelete(Long id) {
         return postRepository.detailDelete(id);
     }
 
-    // 추천 눌렀나?
     @Override
     public boolean clickCheck(Long userId, Long postId) {
         PostRecommend postRecommend = postRecommendRepository.clickCheck(userId, postId);
         return (postRecommend != null);
     }
 
-    // 추천
     @Override
     public int recommend(Long userId, Long postId) {
         postRepository.incRecomCnt(postId);
         return postRecommendRepository.recommend(userId, postId);
     }
 
-    // 비추천
     @Override
     public int opposite(Long userId, Long postId) {
         postRepository.decRecomCnt(postId);
         return postRecommendRepository.opposite(userId, postId);
     }
 
-    // 글 수정
     @Override
     public int update(Post post) {
         int result = postRepository.update(post);
         return result;
     }
 
-    // home -- hot five
     @Override
     public List<Post> selectFive() {
         return postRepository.selectFive();

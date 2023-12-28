@@ -12,7 +12,6 @@
         <result column="i_userId" property="userId"/>
     </resultMap>
 
-    <!-- 댓글 쓴 사람은 user객체에서 가져와야 함! -->
     <resultMap id="mapUser" type="com.project.childprj.domain.User">
         <result column="u_id" property="id"/>
         <result column="u_loginId" property="loginId"/>
@@ -32,7 +31,6 @@
         <collection resultMap="mapImg" property="userImg"/>
     </resultMap>
 
-    <!-- 특정 글에 대한 댓글 -->
     <select id="findCommentById" resultMap="mapComment">
 
         SELECT

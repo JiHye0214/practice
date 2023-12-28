@@ -17,17 +17,17 @@ public class ChildHouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String CRNAME;        // 어린이집명
-    private String CRTYPENAME;    // 어린이집유형
-    private String CRADDR;        // 상세주소
-    private String CRTELNO;       // 전화번호
-    private String CRHOME;        // 홈페이지
-    private Integer NRTRROOMCNT;  // 보육실수
-    private Integer CRCAPAT;      // 정원
-    private Integer CRCHCNT;      // 현원
-    private Double LA;            // 위도
-    private Double LO;            // 경도
-    private String CRCARGBNAME;   // 통학버스운영여부
+    private String CRNAME;
+    private String CRTYPENAME;
+    private String CRADDR;
+    private String CRTELNO;
+    private String CRHOME;
+    private Integer NRTRROOMCNT;
+    private Integer CRCAPAT;
+    private Integer CRCHCNT;
+    private Double LA;
+    private Double LO;
+    private String CRCARGBNAME;
 
     public static ChildHouse fromJson(JsonNode row){
         ChildHouse childHouse = new ChildHouse();

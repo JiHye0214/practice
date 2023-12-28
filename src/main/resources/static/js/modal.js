@@ -1,17 +1,14 @@
 const $dropUserClose = document.querySelector(".dropUserCloseBtn");
 const $modal = document.querySelector(".modal");
-
 const $dropBtn = document.querySelector(".dropUserOk");
 const $dropInput = document.querySelector(".drop-input");
 const $warnMsg = document.querySelector(".login-warn");
 
-// 모달창 띄우기
 const clickDropUserCloseBtn = () => {
     $modal.style.visibility = `hidden`;
     $body.style.overflow = "unset";
 };
 
-// submit
 const clickDropUserBtn5656 = () => {
     if($dropInput.value == ""){
         console.log("비었다!")

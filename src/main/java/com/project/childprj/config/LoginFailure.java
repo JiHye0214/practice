@@ -12,19 +12,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 import java.io.IOException;
 
-/*
- * 실패한 Exception을 검사하여 해당 Exception에 맞는 에러 메시지를 로그인 페이지에 같이 전달하여
- * 로그인 실패 이유를 사용자에게 노출시킵니다.
- *
- * 아래에 구현된 Exception을 포함한 AuthenticationException의 종류는 다음과 같습니다.
- *    UsernameNotFoundException : 계정 없음
- *    BadCredentialsException : 비밀번호 불일치
- *    AccountExpiredException : 계정만료
- *    CredentialExpiredException : 비밀번호 만료
- *    DisabledException : 계정 비활성화
- *    LockedException : 계정잠김
- */
-
 public class LoginFailure implements AuthenticationFailureHandler {
 
     private final String DEFAULT_FAILURE_FORWARD_URL = "/user/loginError";

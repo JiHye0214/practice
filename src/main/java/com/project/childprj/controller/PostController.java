@@ -1,25 +1,17 @@
 package com.project.childprj.controller;
 
 import com.project.childprj.domain.*;
-import com.project.childprj.repository.PostRecommendRepository;
 import com.project.childprj.service.PostCommentService;
 import com.project.childprj.service.PostService;
 import com.project.childprj.service.UserService;
 import com.project.childprj.util.U;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -49,43 +41,38 @@ public class PostController {
         postService.list(page, sq, postOrderWay, model);
     }
 
-    // 글 상세
     @GetMapping("/detail/{id}")
     public String marketDetail(@PathVariable(name = "id") Long id, Model model) {
 
-        // 일단 얘가 null이면 나머지가 전달 안 됨 --> 글만 먼저 전달해야 unless/if가 작동하네 깐깐한 자식
-        model.addAttribute("post", postService.postDetail(id)); // 특정 글
-        postService.incViewCnt(id); // 랜더함수랑 조회수 같이 두니까 뭐 할 때마다 세 번씩 올라가는 거 너무 킹받
+        model.addAttribute("post", postService.postDetail(id));
+        postService.incViewCnt(id);
 
         if(postService.postDetail(id) != null){
             List<PostComment> list = postCommentService.cmtList(id);
             boolean check = postService.clickCheck(U.getLoggedUser().getId(), id);
 
-            model.addAttribute("check", check); // 추천 눌렀나?
-            model.addAttribute("postCmt", list); // 특정 글의 댓글 모음
-            model.addAttribute("writerImg", userService.findUserImg(postService.postDetail(id).getUser().getId())); // 글 작성자 img
-            model.addAttribute("cmtWriterImg", userService.findUserImg(U.getLoggedUser().getId())); // 댓글 쓸 사람 img
+            model.addAttribute("check", check);
+            model.addAttribute("postCmt", list);
+            model.addAttribute("writerImg", userService.findUserImg(postService.postDetail(id).getUser().getId()));
+            model.addAttribute("cmtWriterImg", userService.findUserImg(U.getLoggedUser().getId()));
         }
 
         return "post/detail";
     }
 
-    // 글 작성 페이지
     @GetMapping("/write")
     public void postWrite(Model model){
         model.addAttribute("writerImg", userService.findUserImg(U.getLoggedUser().getId())); // 작성자 img
     }
 
-    // 글 수정 페이지
     @GetMapping("/update/{id}")
     public String postUpdate(@PathVariable(name = "id") Long id, Model model) {
         Post post = postService.postDetail(id);
         model.addAttribute("post", post);
-        model.addAttribute("writerImg", userService.findUserImg(U.getLoggedUser().getId())); // 작성자 img
+        model.addAttribute("writerImg", userService.findUserImg(U.getLoggedUser().getId()));
         return "post/update";
     }
 
-    // 글 목록 - 정렬
     @PostMapping("/orderWay")
     public String orderWay(@RequestParam(name = "postOrderWay", required = false, defaultValue = "최신순") String postOrderWay,
                            @RequestParam(name = "sq", required = false, defaultValue = "") String sq,
@@ -97,7 +84,6 @@ public class PostController {
         return "redirect:/post/list";
     }
 
-    // 글 목록 - 검색
     @PostMapping("/search")
     public String search(@RequestParam(name = "postOrderWay", required = false, defaultValue = "최신순") String postOrderWay,
                          @RequestParam(name = "sq", required = false, defaultValue = "") String sq,
@@ -109,7 +95,6 @@ public class PostController {
         return "redirect:/post/list";
     }
 
-    // 글 작성
     @PostMapping("/write")
     public String postWriteOk(
             Post post
@@ -128,7 +113,6 @@ public class PostController {
         return "/post/writeOk";
     }
 
-    // 글 수정
     @PostMapping("/update")
     public String postUpdateOk(
             Post post
@@ -147,18 +131,16 @@ public class PostController {
         return "post/updateOk";
     }
 
-    // 댓글 작성
     @PostMapping("/cmtWrite")
     public String marketCmtWrite(PostComment postComment, Model model) {
         Long postId = postComment.getPostId();
-        Long userId = U.getLoggedUser().getId();  // 세션 너란 녀석...
+        Long userId = U.getLoggedUser().getId();
         String content = postComment.getContent();
 
         model.addAttribute("change", postCommentService.cmtWrite(userId, postId, content));
         return "/post/success";
     }
 
-    // 댓글 삭제
     @PostMapping("/cmtDelete")
     public String marketCmtDel(PostComment postComment, Model model) {
         Long cmtId = postComment.getId();
@@ -166,7 +148,6 @@ public class PostController {
         return "/post/success";
     }
 
-    // 글 삭제
     @PostMapping("/detailDelete")
     public String detailDelete(Post post, Model model) {
         Long postId = post.getId();
@@ -174,7 +155,6 @@ public class PostController {
         return "/post/deleteOk";
     }
 
-    // 추천
     @PostMapping("/recommend")
     public String recommend(Post post, Model model){
         Long postId = post.getId();
@@ -183,7 +163,6 @@ public class PostController {
         return "/post/success";
     }
 
-    // 비추천
     @PostMapping("/opposite")
     public String opposite(Post post, Model model){
         Long postId = post.getId();
