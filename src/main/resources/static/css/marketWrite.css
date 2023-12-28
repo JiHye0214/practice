@@ -160,6 +160,7 @@
     text-align: center;
     width: 80px;
     font-size: 15px;
+    background-color: white;
 
     &:hover{
         cursor: pointer;
@@ -180,8 +181,14 @@
 .confirmBox {
     position: absolute;
     top: 38px;
-    left: 86px;
+    left: 175px;
     padding: 7px 10px;
     border-radius: 5px;
     font-size: 15px;
+}
+
+/* --------------------------------- */
+
+.img-update-wrap {
+    display: flex;
 }

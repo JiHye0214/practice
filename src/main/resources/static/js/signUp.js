@@ -10,7 +10,8 @@ const signUpValidation = () => {
 
     let count = 0;
     let idCheck = false;
-    let pwCheck = false;
+    let pwCheck1 = false;
+    let pwCheck2 = false;
     let emailCheck = false;
 
     for(let i=0; i<inputArr.length; i++) {
@@ -32,9 +33,17 @@ const signUpValidation = () => {
     }
 
     if(inputArr[1].value == inputArr[2].value){
-        pwCheck = true;
+        pwCheck1 = true;
     } else {
+        warnMsgArr[2].innerHTML = "";
         warnMsgArr[2].innerHTML = "비밀번호가 일치하지 않습니다";
+    }
+
+    if(inputArr[1].value.length > 8){
+        pwCheck2 = true;
+    } else {
+        warnMsgArr[2].innerHTML = "";
+        warnMsgArr[2].innerHTML = "비밀번호는 8자리 이상으로 입력해 주세요";
     }
 
     let email = inputArr[4].value;
@@ -46,7 +55,7 @@ const signUpValidation = () => {
         }
     }
 
-     if(count == 6 && idCheck && pwCheck && emailCheck) {
+     if(count == 6 && idCheck && && pwCheck1 && pwCheck2 && emailCheck) {
         document.forms["signup"].submit();
      }
 }

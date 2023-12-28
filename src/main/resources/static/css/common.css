@@ -99,10 +99,6 @@ img:hover, button:hover {
     font-size: 15px;
 }
 
-.errorMsg {
-    margin-bottom: 15px;
-}
-
 .valid {
     color: red;
     font-size: 15px;

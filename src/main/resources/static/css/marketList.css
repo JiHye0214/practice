@@ -30,7 +30,7 @@
 
 /* 검색 결과 없을 때 */
 .noProductWrap {
-    height: 400px;
+    height: 380px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;

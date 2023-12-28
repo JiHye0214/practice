@@ -12,9 +12,11 @@ const loginValidation = () => {
     for(let i=0; i<inputArr.length; i++) {
         let input = inputArr[i].value;
         if(input == "") {
+            $loginBtn.style.margin = `0`;
             warnMsgArr[i].style.marginBottom = `15px`;
             warnMsgArr[i].innerHTML = `${inputArr[i].placeholder} 을(를) 입력해 주세요`;
         } else {
+            $loginBtn.style.margin = ``;
             warnMsgArr[i].style.marginBottom = ``;
             warnMsgArr[i].innerHTML = ``;
             count++;
